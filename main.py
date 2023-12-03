@@ -35,4 +35,4 @@ def turnOn(methods=['GET']):
     return "ok"
 
 if __name__ == '__main__':
-    app.run(port = config["port"])
+    app.run(port = config["port"], host=config["host"])
