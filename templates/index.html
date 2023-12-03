@@ -1,5 +1,6 @@
 <html>
     <head>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
         <script src="{{url_for('static', filename='script.js') }}" type="text/javascript"></script>
     </head>
@@ -9,19 +10,27 @@
         </div>
 
         <script>
-            httpGetAsync("http://127.0.0.1:5000/ping");
-            function httpGetAsync(url)
-            {
-                fetch(url).then(function(response) {
-                    return response.json();
-                  }).then(function(data) {
-                    console.log(data);
-                    if(data.isOn){
-                        turnOn();
-                    }
-                  }).catch(function(err) {
-                    console.log('Fetch Error :-S', err);
-                  });
+            // httpGetAsync("http://127.0.0.1:5000/ping");
+            // function httpGetAsync(url)
+            // {
+            //     fetch(url).then(function(response) {
+            //         return response.json();
+            //       }).then(function(data) {
+            //         console.log(data);
+            //         if(data.isOn){
+            //             turnOn();
+            //         }
+            //       }).catch(function(err) {
+            //         console.log('Fetch Error :-S', err);
+            //       });
+            // }
+            ison ="{{isOn}}".toLowerCase()
+            turnOnCondition(ison)
+            function turnOnCondition(isOn){
+                if(isOn === "true"){
+                    console.log(isOn)
+                    turnOn();
+                }
             }
         </script>
     </body>
