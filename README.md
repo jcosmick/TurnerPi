@@ -8,3 +8,4 @@ download everything on your raspberry and run main.py with "python main.py"
 * "pcIp": a string with the local pc ip you want to check if it's on
 * "gpioPin" an integer of the ping the led is connected to
 * "toRemainOn" an integer to indicate how much time (seconds) the led will stay on after clicking the button on the website
+* "port" an integer port where the web app will run
