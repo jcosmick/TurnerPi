@@ -30,9 +30,9 @@ def pingTest(methods=['GET']):
 @app.route('/turnon')
 def turnOn(methods=['GET']):
     led.on()
-    sleep(config["tempoRimaneAcceso"])
+    sleep(config["remainOn"])
     led.off()
     return "ok"
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port = config["port"])

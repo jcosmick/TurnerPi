@@ -1,5 +1,6 @@
 {
     "pcIp": "google.it",
     "gpioPin": 17,
-    "tempoRimaneAcceso": 2
+    "remainOn": 2,
+    "port":8080
 }
