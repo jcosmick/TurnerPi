@@ -14,6 +14,7 @@ app = Flask(__name__)
 def ping(host):
     param = '-n' if platform.system().lower()=='windows' else '-c'
     command = ['ping', param, '1', host]
+    print("pinging: "+host+" with command: "+ ' '.join(command))
     return subprocess.call(command) == 0
 
 @app.route('/')
