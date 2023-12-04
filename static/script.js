@@ -21,7 +21,7 @@ async function buttonClicked(){
         if(response){
             intervalId = setInterval(async function(){
                 responsePing = await httpGetAsync(serviceUrl+"ping")
-                if(responsePing == "True" || responsePing == true){
+                if(responsePing.isOn == "True" || responsePing.isOn == true){
                     turnOn()
                 }
             }, 2000)
