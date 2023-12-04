@@ -1,3 +1,13 @@
+.text{
+	position: relative;
+	font-size: 22px;
+	top: 50px;
+	font-family: 'Poppins';
+	opacity: 0;
+	-ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
 
 .button {
 	/* 	design the outer circle */
@@ -25,6 +35,20 @@
 	border: 10px solid #eee;
 	border-radius: 50%;
 	position: absolute;
+}
+
+.break-circle{
+	height: 30%;
+	width: 10px;
+	background: #fff;
+	border-radius: 10px;
+
+	/* 	position the light correctly */
+	position: absolute;
+	top: 20px;
+
+	/* 	required to give white-space to inner-ring */
+	box-shadow: 0 0 0 10px #fff;
 }
 
 .light {
@@ -58,8 +82,46 @@
 	border-color: lightgreen;
 }
 
+.button-clicked .light {
+	background: rgb(255, 153, 0);
+}
+
+.text-on, .button-clicked .light, .button-clicked::before {
+	animation: blinker 2s linear infinite
+}
+
+.text-off{
+	opacity: 0.5;
+}
+
+.text-off:hover{
+	cursor: pointer;
+}
+
+.button-clicked::before {
+	border-color: rgb(255, 153, 0);
+}
+
+@keyframes blinker {
+	50% {
+	  opacity: 0.3;
+	}
+  }
+
+.button-off .light {
+	background: rgb(255, 91, 79);
+}
+
+.button-off::before {
+	border-color: rgb(255, 91, 79);
+}
+
 body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	height: 100vh;
-	display: grid;
-	place-items: center;
 }
