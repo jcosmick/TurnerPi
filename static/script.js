@@ -35,6 +35,8 @@ function turnOn(){
     const text = document.getElementById("text");
 
     text.classList.remove("text-on")
+    text.classList.remove("text-off")
+    text.innerHTML=""
 
     button.classList.remove("button-off")
     button.classList.remove("button-clicked")
