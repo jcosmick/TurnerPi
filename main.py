@@ -6,7 +6,7 @@ from time import sleep
 from gpiozero import LED
 
 config = json.load(open('configuration.json'))
-# led = LED(config["gpioPin"])
+led = LED(config["gpioPin"])
 
 
 app = Flask(__name__)
@@ -30,9 +30,9 @@ def pingTest(methods=['GET']):
 @app.route('/turnon')
 def turnOn(methods=['GET']):
     print("turnOn request from "+ request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
-    # led.on()
+    led.on()
     sleep(config["remainOn"])
-    #led.off()
+    led.off()
     return json.dumps(config["timeout"])
 
 if __name__ == '__main__':
