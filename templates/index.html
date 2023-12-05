@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -13,26 +14,11 @@
         <div class="text" id="text" onclick="textClicked()">.</div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                if({{isPinging}}){
-                    turnClicked();
-                }
-                else{
-                    turnOnCondition();
-                }
-            }, false);
-
-            async function turnOnCondition(){
-                turnClicked()
-                document.getElementById("text").innerHTML = "Checking if server is ON..."
-                response = await httpGetAsync(serviceUrl+"ping")
-                if(response.isOn){
-                    turnOn()
-                }
-                else{
-                    removeStates();
-                }
-            }
+            document.addEventListener('DOMContentLoaded', async function() {
+                isOn = await turnOnCondition()
+                if(!isOn)
+                    eventListener()
+            }, false);            
         </script>
     </body>
 </html>

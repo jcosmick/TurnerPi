@@ -1,3 +1,5 @@
 {
-    "isPinging": false
+  "isPinging": false,
+  "isOn": false,
+  "isTimeout": false
 }

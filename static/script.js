@@ -1,5 +1,7 @@
 buttonClasses = ["button-on", "button-clicked"]
 serviceUrl = window.location.href
+eventSource = new EventSource("/listen")
+firstTime = true
 
 function isPressed(buttonClassList = Array){
     return !buttonClasses.some(className => button.classList.contains(className))
@@ -16,22 +18,49 @@ async function buttonClicked(){
     const button = document.getElementById("button");
     if(isPressed(button.classList)){
         turnClicked()
-        response = await httpGetAsync(serviceUrl+"turnon")
-        console.log(response)
-        if(response.isOn){
-            // intervalId = setInterval(async function(){
-            //     responsePing = await httpGetAsync(serviceUrl+"ping")
-            //     if(responsePing.isOn == "True" || responsePing.isOn == true){
-            //         turnOn()
-            //         clearInterval(intervalId)
-            //     }
-            // }, 2000)
-            // setTimeout(() => {clearInterval(intervalId); turnOff()}, response*1000)
-            turnOn();
-        }
-        else{
-            turnOff();
-        }
+        firstTime = false
+        await httpGetAsync(serviceUrl+"turnon")
+    }
+}
+
+async function turnOnCondition(){
+    turnClicked()
+    document.getElementById("text").innerHTML = "Checking if server is ON..."
+    response = await httpGetAsync(serviceUrl+"ping")
+    if(response.isOn){
+        turnOn()
+    }
+    else{
+        removeStates();
+    }
+    return response.isOn
+}
+
+function eventListener(){
+    eventSource.addEventListener("message", function(e) {
+    console.log(e.data)
+    }, false)
+
+    eventSource.addEventListener("online", listener, true)
+}
+
+var listener = function(e){
+    data = JSON.parse(e.data)
+    console.log(data)
+    if(data.isPinging)
+    {
+        firstTime = false
+        turnClicked()
+    }
+    else if(data.isOn){
+        firstTime = false
+        turnOn()
+    }
+    else if(data.isTimeout && !firstTime){
+        turnOff()
+    }
+    else{
+        removeStates()
     }
 }
 
