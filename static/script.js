@@ -18,28 +18,39 @@ async function buttonClicked(){
         turnClicked()
         response = await httpGetAsync(serviceUrl+"turnon")
         console.log(response)
-        if(response){
-            intervalId = setInterval(async function(){
-                responsePing = await httpGetAsync(serviceUrl+"ping")
-                if(responsePing.isOn == "True" || responsePing.isOn == true){
-                    turnOn()
-                }
-            }, 2000)
-            setTimeout(() => {clearInterval(intervalId); turnOff()}, response*1000)
+        if(response.isOn){
+            // intervalId = setInterval(async function(){
+            //     responsePing = await httpGetAsync(serviceUrl+"ping")
+            //     if(responsePing.isOn == "True" || responsePing.isOn == true){
+            //         turnOn()
+            //         clearInterval(intervalId)
+            //     }
+            // }, 2000)
+            // setTimeout(() => {clearInterval(intervalId); turnOff()}, response*1000)
+            turnOn();
+        }
+        else{
+            turnOff();
         }
     }
 }
 
-function turnOn(){
+function removeStates(){
     const button = document.getElementById("button");
     const text = document.getElementById("text");
 
     text.classList.remove("text-on")
     text.classList.remove("text-off")
-    text.innerHTML=""
+    text.innerHTML="."
 
     button.classList.remove("button-off")
     button.classList.remove("button-clicked")
+    button.classList.remove("button-on")
+}
+
+function turnOn(){
+    const button = document.getElementById("button");
+    removeStates()
     button.classList.add("button-on")
     
 }
@@ -48,12 +59,10 @@ function turnOff(){
     const button = document.getElementById("button");
     const text = document.getElementById("text");
 
-    text.classList.remove("text-on")
+    removeStates()
+
     text.innerHTML = "Server does not respond.\nClick to retry"
     text.classList.add("text-off")
-
-    button.classList.remove("button-on")
-    button.classList.remove("button-clicked")
     button.classList.add("button-off")
     
 }
@@ -61,14 +70,10 @@ function turnOff(){
 function turnClicked(){
     const button = document.getElementById("button");
     const text = document.getElementById("text");
-
-    text.classList.remove("text-off")
-    text.innerHTML = "Turning on the server..."
     
-    button.classList.remove("button-on")
-    button.classList.remove("button-off")
+    removeStates()
 
-    text.style.opacity = 0.5
+    text.innerHTML = "Turning on the server..."
     button.classList.add("button-clicked")
     text.classList.add("text-on")
 }

@@ -87,10 +87,10 @@
 }
 
 .text-on, .button-clicked .light, .button-clicked::before {
-	animation: blinker 2s linear infinite
+	animation: blinker 2s linear infinite;
 }
 
-.text-off{
+.text-off, .text-on{
 	opacity: 0.5;
 }
 
