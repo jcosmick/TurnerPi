@@ -103,7 +103,7 @@ def turnOn(methods=['GET']):
     sleep(config["remainOn"])
     led.off()
     pingLoop(config['pcIp'])
-    return
+    return '', 200
 
 if __name__ == '__main__':
     #app.run(port = config["port"], host=config["host"])
