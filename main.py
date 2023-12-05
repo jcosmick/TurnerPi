@@ -8,13 +8,13 @@ import os
 from time import sleep, time
 from gpiozero import LED
 
-
-def isPinging(): return json.load(open('appData.json'))["isPinging"]
-#led = LED(config["gpioPin"])
-
+config = json.load(open('configuration.json'))
+led = LED(config["gpioPin"])
 
 app = Flask(__name__)
 counter = 0
+
+def isPinging(): return json.load(open('appData.json'))["isPinging"]
 
 def changeIsPinging(var):
     with open('appData.json', 'r') as file:
@@ -99,15 +99,14 @@ def turnOn(methods=['GET']):
     print("turnOn request from "+ request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
     changeIsPinging(True)
     changeIsTimeout(False)
-    #led.on()
+    led.on()
     sleep(config["remainOn"])
-    #led.off()
+    led.off()
     pingLoop(config['pcIp'])
     return
 
 if __name__ == '__main__':
     #app.run(port = config["port"], host=config["host"])
-    config = json.load(open('configuration.json'))
     data_to_write = {"isPinging": False,"isOn": False, "isTimeout": False}
     with open('appData.json', 'w') as file:
         json.dump(data_to_write, file, indent=2)
