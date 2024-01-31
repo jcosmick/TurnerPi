@@ -2,7 +2,7 @@ import json
 
 appDataFileName = 'appData.json'
 
-def createAppDataFile(data_to_write):
+def createAppDataFile(data_to_write = {"isPinging": False,"isOn": False, "isTimeout": False}):
     with open(appDataFileName, 'w') as file:
         json.dump(data_to_write, file, indent=2)
 
